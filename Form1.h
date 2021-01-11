@@ -10,10 +10,12 @@ namespace CppCLRWinformsProjekt {
 	using namespace System::Drawing;
 	using namespace System::Text;
 	using namespace System::Globalization;
+	using namespace System::IO;
 	using namespace System::Media;
+	using namespace Microsoft::Win32;
 
 	/// <summary>
-	/// Zusammenfassung für Form1
+	/// Zusammenfassung for Form1
 	/// </summary>
 	public ref class Form1 : public System::Windows::Forms::Form
 	{
@@ -24,6 +26,7 @@ namespace CppCLRWinformsProjekt {
 			//
 			//TODO: Konstruktorcode hier hinzufügen.
 			//
+			RestoreSettings();
 		}
 
 	protected:
@@ -32,6 +35,7 @@ namespace CppCLRWinformsProjekt {
 		/// </summary>
 		~Form1()
 		{
+			SaveSettings();
 			if (components)
 			{
 				delete components;
@@ -73,7 +77,7 @@ namespace CppCLRWinformsProjekt {
 	private: System::Windows::Forms::Label^ labelDescription;
 	private: System::Windows::Forms::Label^ labelTestCase;
 	private: System::Windows::Forms::Label^ labelModifyFiles;
-	private: System::Windows::Forms::TextBox^ textBoxProjectName;
+
 
 
 
@@ -95,7 +99,7 @@ namespace CppCLRWinformsProjekt {
 	private: System::Windows::Forms::TextBox^ textBoxModifyFiles;
 
 
-	private: System::Windows::Forms::LinkLabel^ linkLabel1;
+
 	private: System::Windows::Forms::GroupBox^ groupBoxBiosType;
 	private: System::Windows::Forms::RadioButton^ radioButtonCustomized;
 
@@ -113,7 +117,16 @@ namespace CppCLRWinformsProjekt {
 	private: System::Windows::Forms::Button^ buttonExport;
 	private: System::Windows::Forms::Button^ buttonClipboard;
 	private: System::Windows::Forms::Button^ buttonImport;
-private: System::Windows::Forms::Label^ labelSignature;
+	private: System::Windows::Forms::Label^ labelSignature;
+	private: System::Windows::Forms::Button^ buttonToday;
+	private: System::Windows::Forms::ComboBox^ comboBoxProjectName;
+	private: System::Windows::Forms::FolderBrowserDialog^ folderBrowserDialog1;
+	private: System::Windows::Forms::PictureBox^ pictureBoxAdlinkLogo;
+private: System::Windows::Forms::ImageList^ imageList1;
+
+
+
+
 
 	private: System::ComponentModel::IContainer^ components;
 
@@ -147,6 +160,7 @@ private: System::Windows::Forms::Label^ labelSignature;
 			this->labelSummary = (gcnew System::Windows::Forms::Label());
 			this->labelAuthor = (gcnew System::Windows::Forms::Label());
 			this->groupBoxSignature = (gcnew System::Windows::Forms::GroupBox());
+			this->buttonToday = (gcnew System::Windows::Forms::Button());
 			this->labelSignature = (gcnew System::Windows::Forms::Label());
 			this->textBoxSerialNumber = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxDate = (gcnew System::Windows::Forms::TextBox());
@@ -156,14 +170,12 @@ private: System::Windows::Forms::Label^ labelSignature;
 			this->labelDescription = (gcnew System::Windows::Forms::Label());
 			this->labelTestCase = (gcnew System::Windows::Forms::Label());
 			this->labelModifyFiles = (gcnew System::Windows::Forms::Label());
-			this->textBoxProjectName = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxBiosVersion = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxIssueNumber = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxSummary = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxDescription = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxTestCase = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxModifyFiles = (gcnew System::Windows::Forms::TextBox());
-			this->linkLabel1 = (gcnew System::Windows::Forms::LinkLabel());
 			this->groupBoxBiosType = (gcnew System::Windows::Forms::GroupBox());
 			this->radioButtonCustomized = (gcnew System::Windows::Forms::RadioButton());
 			this->radioButtonStandard = (gcnew System::Windows::Forms::RadioButton());
@@ -174,10 +186,15 @@ private: System::Windows::Forms::Label^ labelSignature;
 			this->buttonExport = (gcnew System::Windows::Forms::Button());
 			this->buttonClipboard = (gcnew System::Windows::Forms::Button());
 			this->buttonImport = (gcnew System::Windows::Forms::Button());
+			this->comboBoxProjectName = (gcnew System::Windows::Forms::ComboBox());
+			this->folderBrowserDialog1 = (gcnew System::Windows::Forms::FolderBrowserDialog());
+			this->pictureBoxAdlinkLogo = (gcnew System::Windows::Forms::PictureBox());
+			this->imageList1 = (gcnew System::Windows::Forms::ImageList(this->components));
 			this->groupBoxType->SuspendLayout();
 			this->groupBoxModification->SuspendLayout();
 			this->groupBoxSignature->SuspendLayout();
 			this->groupBoxBiosType->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxAdlinkLogo))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// groupBoxType
@@ -250,7 +267,7 @@ private: System::Windows::Forms::Label^ labelSignature;
 			// 
 			this->radioButtonBugFix->AutoSize = true;
 			this->radioButtonBugFix->Checked = true;
-			this->radioButtonBugFix->Location = System::Drawing::Point(13, 37);
+			this->radioButtonBugFix->Location = System::Drawing::Point(10, 37);
 			this->radioButtonBugFix->Name = L"radioButtonBugFix";
 			this->radioButtonBugFix->Size = System::Drawing::Size(59, 16);
 			this->radioButtonBugFix->TabIndex = 0;
@@ -261,7 +278,7 @@ private: System::Windows::Forms::Label^ labelSignature;
 			// radioButtonFunctionAdd
 			// 
 			this->radioButtonFunctionAdd->AutoSize = true;
-			this->radioButtonFunctionAdd->Location = System::Drawing::Point(79, 37);
+			this->radioButtonFunctionAdd->Location = System::Drawing::Point(69, 37);
 			this->radioButtonFunctionAdd->Name = L"radioButtonFunctionAdd";
 			this->radioButtonFunctionAdd->Size = System::Drawing::Size(87, 16);
 			this->radioButtonFunctionAdd->TabIndex = 1;
@@ -272,7 +289,7 @@ private: System::Windows::Forms::Label^ labelSignature;
 			// radioButtonFunctionRemove
 			// 
 			this->radioButtonFunctionRemove->AutoSize = true;
-			this->radioButtonFunctionRemove->Location = System::Drawing::Point(172, 37);
+			this->radioButtonFunctionRemove->Location = System::Drawing::Point(162, 37);
 			this->radioButtonFunctionRemove->Name = L"radioButtonFunctionRemove";
 			this->radioButtonFunctionRemove->Size = System::Drawing::Size(106, 16);
 			this->radioButtonFunctionRemove->TabIndex = 2;
@@ -287,7 +304,7 @@ private: System::Windows::Forms::Label^ labelSignature;
 			this->groupBoxModification->Controls->Add(this->radioButtonFunctionAdd);
 			this->groupBoxModification->Location = System::Drawing::Point(26, 277);
 			this->groupBoxModification->Name = L"groupBoxModification";
-			this->groupBoxModification->Size = System::Drawing::Size(290, 77);
+			this->groupBoxModification->Size = System::Drawing::Size(280, 77);
 			this->groupBoxModification->TabIndex = 11;
 			this->groupBoxModification->TabStop = false;
 			this->groupBoxModification->Text = L"Modification Type";
@@ -321,6 +338,7 @@ private: System::Windows::Forms::Label^ labelSignature;
 			// 
 			// groupBoxSignature
 			// 
+			this->groupBoxSignature->Controls->Add(this->buttonToday);
 			this->groupBoxSignature->Controls->Add(this->labelSignature);
 			this->groupBoxSignature->Controls->Add(this->textBoxSerialNumber);
 			this->groupBoxSignature->Controls->Add(this->textBoxDate);
@@ -330,10 +348,20 @@ private: System::Windows::Forms::Label^ labelSignature;
 			this->groupBoxSignature->Controls->Add(this->labelAuthor);
 			this->groupBoxSignature->Location = System::Drawing::Point(18, 434);
 			this->groupBoxSignature->Name = L"groupBoxSignature";
-			this->groupBoxSignature->Size = System::Drawing::Size(288, 126);
+			this->groupBoxSignature->Size = System::Drawing::Size(245, 126);
 			this->groupBoxSignature->TabIndex = 16;
 			this->groupBoxSignature->TabStop = false;
 			this->groupBoxSignature->Text = L"Signature";
+			// 
+			// buttonToday
+			// 
+			this->buttonToday->Location = System::Drawing::Point(183, 49);
+			this->buttonToday->Name = L"buttonToday";
+			this->buttonToday->Size = System::Drawing::Size(47, 23);
+			this->buttonToday->TabIndex = 4;
+			this->buttonToday->Text = L"Today";
+			this->buttonToday->UseVisualStyleBackColor = true;
+			this->buttonToday->Click += gcnew System::EventHandler(this, &Form1::buttonToday_Click);
 			// 
 			// labelSignature
 			// 
@@ -350,7 +378,8 @@ private: System::Windows::Forms::Label^ labelSignature;
 			this->textBoxSerialNumber->MaxLength = 2;
 			this->textBoxSerialNumber->Name = L"textBoxSerialNumber";
 			this->textBoxSerialNumber->Size = System::Drawing::Size(37, 22);
-			this->textBoxSerialNumber->TabIndex = 5;
+			this->textBoxSerialNumber->TabIndex = 6;
+			this->toolTip1->SetToolTip(this->textBoxSerialNumber, L"personal daily serial number");
 			this->textBoxSerialNumber->TextChanged += gcnew System::EventHandler(this, &Form1::textBoxSerialNumber_TextChanged);
 			// 
 			// textBoxDate
@@ -360,8 +389,8 @@ private: System::Windows::Forms::Label^ labelSignature;
 			this->textBoxDate->Name = L"textBoxDate";
 			this->textBoxDate->Size = System::Drawing::Size(91, 22);
 			this->textBoxDate->TabIndex = 3;
+			this->toolTip1->SetToolTip(this->textBoxDate, L"YYYYMMDD, date code");
 			this->textBoxDate->TextChanged += gcnew System::EventHandler(this, &Form1::textBoxDate_TextChanged);
-			this->textBoxDate->Enter += gcnew System::EventHandler(this, &Form1::textBoxDate_Enter);
 			// 
 			// textBoxAuthor
 			// 
@@ -370,6 +399,7 @@ private: System::Windows::Forms::Label^ labelSignature;
 			this->textBoxAuthor->Name = L"textBoxAuthor";
 			this->textBoxAuthor->Size = System::Drawing::Size(37, 22);
 			this->textBoxAuthor->TabIndex = 1;
+			this->toolTip1->SetToolTip(this->textBoxAuthor, L"XX, 2 letters\' initial of the name of the author");
 			this->textBoxAuthor->TextChanged += gcnew System::EventHandler(this, &Form1::textBoxAuthor_TextChanged);
 			this->textBoxAuthor->Leave += gcnew System::EventHandler(this, &Form1::textBoxAuthor_Leave);
 			// 
@@ -379,7 +409,7 @@ private: System::Windows::Forms::Label^ labelSignature;
 			this->labelSerialnumber->Location = System::Drawing::Point(28, 86);
 			this->labelSerialnumber->Name = L"labelSerialnumber";
 			this->labelSerialnumber->Size = System::Drawing::Size(37, 12);
-			this->labelSerialnumber->TabIndex = 4;
+			this->labelSerialnumber->TabIndex = 5;
 			this->labelSerialnumber->Text = L"Serial#";
 			// 
 			// labelDate
@@ -394,7 +424,7 @@ private: System::Windows::Forms::Label^ labelSignature;
 			// labelDescription
 			// 
 			this->labelDescription->AutoSize = true;
-			this->labelDescription->Location = System::Drawing::Point(331, 15);
+			this->labelDescription->Location = System::Drawing::Point(310, 103);
 			this->labelDescription->Name = L"labelDescription";
 			this->labelDescription->Size = System::Drawing::Size(58, 12);
 			this->labelDescription->TabIndex = 17;
@@ -403,7 +433,7 @@ private: System::Windows::Forms::Label^ labelSignature;
 			// labelTestCase
 			// 
 			this->labelTestCase->AutoSize = true;
-			this->labelTestCase->Location = System::Drawing::Point(340, 177);
+			this->labelTestCase->Location = System::Drawing::Point(310, 236);
 			this->labelTestCase->Name = L"labelTestCase";
 			this->labelTestCase->Size = System::Drawing::Size(49, 12);
 			this->labelTestCase->TabIndex = 19;
@@ -412,19 +442,11 @@ private: System::Windows::Forms::Label^ labelSignature;
 			// labelModifyFiles
 			// 
 			this->labelModifyFiles->AutoSize = true;
-			this->labelModifyFiles->Location = System::Drawing::Point(325, 366);
+			this->labelModifyFiles->Location = System::Drawing::Point(309, 364);
 			this->labelModifyFiles->Name = L"labelModifyFiles";
 			this->labelModifyFiles->Size = System::Drawing::Size(64, 12);
 			this->labelModifyFiles->TabIndex = 21;
 			this->labelModifyFiles->Text = L"Modify Files";
-			// 
-			// textBoxProjectName
-			// 
-			this->textBoxProjectName->Location = System::Drawing::Point(114, 158);
-			this->textBoxProjectName->Name = L"textBoxProjectName";
-			this->textBoxProjectName->Size = System::Drawing::Size(134, 22);
-			this->textBoxProjectName->TabIndex = 6;
-			this->toolTip1->SetToolTip(this->textBoxProjectName, L"VEB file name");
 			// 
 			// textBoxBiosVersion
 			// 
@@ -440,6 +462,7 @@ private: System::Windows::Forms::Label^ labelSignature;
 			this->textBoxIssueNumber->Name = L"textBoxIssueNumber";
 			this->textBoxIssueNumber->Size = System::Drawing::Size(134, 22);
 			this->textBoxIssueNumber->TabIndex = 13;
+			this->toolTip1->SetToolTip(this->textBoxIssueNumber, L"Jira #");
 			// 
 			// textBoxSummary
 			// 
@@ -447,42 +470,34 @@ private: System::Windows::Forms::Label^ labelSignature;
 			this->textBoxSummary->Name = L"textBoxSummary";
 			this->textBoxSummary->Size = System::Drawing::Size(134, 22);
 			this->textBoxSummary->TabIndex = 15;
+			this->toolTip1->SetToolTip(this->textBoxSummary, L"Might be Summary from Jira");
 			// 
 			// textBoxDescription
 			// 
-			this->textBoxDescription->Location = System::Drawing::Point(399, 12);
+			this->textBoxDescription->Location = System::Drawing::Point(311, 118);
 			this->textBoxDescription->Multiline = true;
 			this->textBoxDescription->Name = L"textBoxDescription";
-			this->textBoxDescription->Size = System::Drawing::Size(342, 148);
+			this->textBoxDescription->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
+			this->textBoxDescription->Size = System::Drawing::Size(342, 106);
 			this->textBoxDescription->TabIndex = 18;
 			// 
 			// textBoxTestCase
 			// 
-			this->textBoxTestCase->Location = System::Drawing::Point(399, 174);
+			this->textBoxTestCase->Location = System::Drawing::Point(310, 251);
 			this->textBoxTestCase->Multiline = true;
 			this->textBoxTestCase->Name = L"textBoxTestCase";
-			this->textBoxTestCase->Size = System::Drawing::Size(342, 148);
+			this->textBoxTestCase->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
+			this->textBoxTestCase->Size = System::Drawing::Size(342, 106);
 			this->textBoxTestCase->TabIndex = 20;
 			// 
 			// textBoxModifyFiles
 			// 
-			this->textBoxModifyFiles->Location = System::Drawing::Point(399, 340);
+			this->textBoxModifyFiles->Location = System::Drawing::Point(311, 379);
 			this->textBoxModifyFiles->Multiline = true;
 			this->textBoxModifyFiles->Name = L"textBoxModifyFiles";
-			this->textBoxModifyFiles->Size = System::Drawing::Size(342, 148);
+			this->textBoxModifyFiles->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
+			this->textBoxModifyFiles->Size = System::Drawing::Size(342, 106);
 			this->textBoxModifyFiles->TabIndex = 22;
-			// 
-			// linkLabel1
-			// 
-			this->linkLabel1->AutoSize = true;
-			this->linkLabel1->Location = System::Drawing::Point(590, 574);
-			this->linkLabel1->Name = L"linkLabel1";
-			this->linkLabel1->Size = System::Drawing::Size(157, 12);
-			this->linkLabel1->TabIndex = 26;
-			this->linkLabel1->TabStop = true;
-			this->linkLabel1->Text = L"Confluence: Git Message Format";
-			this->toolTip1->SetToolTip(this->linkLabel1, L"Web page where this foramt rule comes from");
-			this->linkLabel1->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &Form1::linkLabel1_LinkClicked);
 			// 
 			// groupBoxBiosType
 			// 
@@ -549,16 +564,17 @@ private: System::Windows::Forms::Label^ labelSignature;
 			// 
 			// buttonExport
 			// 
-			this->buttonExport->Location = System::Drawing::Point(399, 508);
+			this->buttonExport->Location = System::Drawing::Point(311, 489);
 			this->buttonExport->Name = L"buttonExport";
 			this->buttonExport->Size = System::Drawing::Size(88, 52);
 			this->buttonExport->TabIndex = 23;
 			this->buttonExport->Text = L"Export";
 			this->buttonExport->UseVisualStyleBackColor = true;
+			this->buttonExport->Click += gcnew System::EventHandler(this, &Form1::buttonExport_Click);
 			// 
 			// buttonClipboard
 			// 
-			this->buttonClipboard->Location = System::Drawing::Point(536, 508);
+			this->buttonClipboard->Location = System::Drawing::Point(448, 489);
 			this->buttonClipboard->Name = L"buttonClipboard";
 			this->buttonClipboard->Size = System::Drawing::Size(80, 52);
 			this->buttonClipboard->TabIndex = 24;
@@ -569,32 +585,57 @@ private: System::Windows::Forms::Label^ labelSignature;
 			// buttonImport
 			// 
 			this->buttonImport->Enabled = false;
-			this->buttonImport->Location = System::Drawing::Point(665, 508);
+			this->buttonImport->Location = System::Drawing::Point(577, 489);
 			this->buttonImport->Name = L"buttonImport";
 			this->buttonImport->Size = System::Drawing::Size(76, 52);
 			this->buttonImport->TabIndex = 25;
 			this->buttonImport->Text = L"Import";
 			this->buttonImport->UseVisualStyleBackColor = true;
 			// 
+			// comboBoxProjectName
+			// 
+			this->comboBoxProjectName->FormattingEnabled = true;
+			this->comboBoxProjectName->Location = System::Drawing::Point(114, 158);
+			this->comboBoxProjectName->Name = L"comboBoxProjectName";
+			this->comboBoxProjectName->Size = System::Drawing::Size(134, 20);
+			this->comboBoxProjectName->TabIndex = 6;
+			this->comboBoxProjectName->Leave += gcnew System::EventHandler(this, &Form1::comboBoxProjectName_Leave);
+			// 
+			// pictureBoxAdlinkLogo
+			// 
+			this->pictureBoxAdlinkLogo->Location = System::Drawing::Point(316, 12);
+			this->pictureBoxAdlinkLogo->Name = L"pictureBoxAdlinkLogo";
+			this->pictureBoxAdlinkLogo->Size = System::Drawing::Size(341, 79);
+			this->pictureBoxAdlinkLogo->TabIndex = 26;
+			this->pictureBoxAdlinkLogo->TabStop = false;
+			this->toolTip1->SetToolTip(this->pictureBoxAdlinkLogo, L"Click to visit Commit Message Rule page...");
+			this->pictureBoxAdlinkLogo->Click += gcnew System::EventHandler(this, &Form1::pictureBoxAdlinkLogo_Click);
+			// 
+			// imageList1
+			// 
+			this->imageList1->ColorDepth = System::Windows::Forms::ColorDepth::Depth8Bit;
+			this->imageList1->ImageSize = System::Drawing::Size(16, 16);
+			this->imageList1->TransparentColor = System::Drawing::Color::Transparent;
+			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(759, 595);
+			this->ClientSize = System::Drawing::Size(669, 568);
+			this->Controls->Add(this->pictureBoxAdlinkLogo);
+			this->Controls->Add(this->comboBoxProjectName);
 			this->Controls->Add(this->buttonImport);
 			this->Controls->Add(this->buttonClipboard);
 			this->Controls->Add(this->buttonExport);
 			this->Controls->Add(this->labelCustomerName);
 			this->Controls->Add(this->textBoxCustomerName);
 			this->Controls->Add(this->groupBoxBiosType);
-			this->Controls->Add(this->linkLabel1);
 			this->Controls->Add(this->textBoxModifyFiles);
 			this->Controls->Add(this->textBoxTestCase);
 			this->Controls->Add(this->textBoxDescription);
 			this->Controls->Add(this->textBoxSummary);
 			this->Controls->Add(this->textBoxIssueNumber);
 			this->Controls->Add(this->textBoxBiosVersion);
-			this->Controls->Add(this->textBoxProjectName);
 			this->Controls->Add(this->labelModifyFiles);
 			this->Controls->Add(this->labelTestCase);
 			this->Controls->Add(this->labelDescription);
@@ -610,6 +651,7 @@ private: System::Windows::Forms::Label^ labelSignature;
 			this->Name = L"Form1";
 			this->Text = L"Adlink Logger v0.1-2021-01-08";
 			this->Load += gcnew System::EventHandler(this, &Form1::Form1_Load);
+			this->LocationChanged += gcnew System::EventHandler(this, &Form1::Form1_LocationChanged);
 			this->groupBoxType->ResumeLayout(false);
 			this->groupBoxType->PerformLayout();
 			this->groupBoxModification->ResumeLayout(false);
@@ -618,24 +660,185 @@ private: System::Windows::Forms::Label^ labelSignature;
 			this->groupBoxSignature->PerformLayout();
 			this->groupBoxBiosType->ResumeLayout(false);
 			this->groupBoxBiosType->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxAdlinkLogo))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
 
+#define APP_KEY							"Logger"
+#define APP_VERSION_VALUE   			"AppVersion"
+#define APP_REGISTRY_VERSION			"0.1"
+
+#define COMPANY_NAME				    "ADLink"
+
+#define VALUE_MESSAGE_TYPE_TAG          "MessageTypeTag"
+#define VALUE_MESSAGE_TYPE_MARK         "MessageTypeMark"
+#define VALUE_MESSAGE_TYPE_MESSAGE      "MessageTypeMessage"
+#define VALUE_BIOS_TYPE_CRB             "BiosTypeCrb"
+#define VALUE_BIOS_TYPE_STANDARD        "BiosTypeStandard"
+#define VALUE_BIOS_TYPE_CUSTOMIZED      "BiosTypeCustomized"
+#define VALUE_PROJECT_NAME              "ProjectName"
+#define VALUE_CUSTOMER_NAME				"CustomerName"
+#define VALUE_BIOS_VERSION				"BiosVersion"
+#define VALUE_MODIFY_TYPE_BF            "ModifyTypeBugFix"
+#define VALUE_MODIFY_TYPE_FA            "ModifyTypeFunctionAdd"
+#define VALUE_MODIFY_TYPE_FD            "ModifyTypeFunctionRemove"
+#define VALUE_ISSUE_NUMBER				"IssueNumber"
+#define VALUE_SUMMARY					"Summary"
+#define VALUE_SIGNATURE_AUTHOR			"SignatureAuthor"
+#define VALUE_SIGNATURE_DATE			"SignatureDate"
+#define VALUE_SIGNATURE_SERIAL_NUM		"SignatureSerialNumber"
+#define VALUE_DESCRIPTION				"Description"
+#define VALUE_TEST_CASE					"TestCase"
+#define VALUE_MODIFY_FILES				"ModifyFiles"
+
+#define FORM_LOCATION_VALUE			    "FormLocationV"
+#define FORM_LOCATION_X_VALUE			"FormLocationXV"
+#define FORM_LOCATION_Y_VALUE			"FormLocationYV"
+
+#define PROJECT_NAME_KEY				"ProjectName"
+#define MAX_PROJECT_NAME_SAVED				5
+
+	//
+	// Saved Form Layout
+	//
+	private: System::Drawing::Point formLocation;
+
+		   //
+   // subroutins
+   //
+	private: System::Void SaveComboSettings(RegistryKey^ appKey, String^ keyName, System::Windows::Forms::ComboBox^ comboBox) {
+		String^ keyNameIndex = keyName + "_Index";
+		RegistryKey^ subKey = appKey->OpenSubKey(keyName, true);
+		if (subKey != nullptr) {
+			appKey->DeleteSubKeyTree(keyName);
+		}
+		subKey = appKey->CreateSubKey(keyName);
+		for (int i = 0; i < comboBox->Items->Count && i < MAX_PROJECT_NAME_SAVED; i++) {
+			comboBox->SelectedIndex = i;
+			subKey->SetValue(i.ToString(), comboBox->Text);
+		}
+	}
+
+	private: System::Void SaveSettings(Void) {
+		RegistryKey^ appKey = Registry::CurrentUser->CreateSubKey("Software\\" + COMPANY_NAME + "\\" + APP_KEY);
+
+		appKey->SetValue(VALUE_MESSAGE_TYPE_TAG,		radioButtonTag->Checked);
+		appKey->SetValue(VALUE_MESSAGE_TYPE_MARK,       radioButtonMark->Checked);
+		appKey->SetValue(VALUE_MESSAGE_TYPE_MESSAGE,	radioButtonMessage->Checked);
+		appKey->SetValue(VALUE_BIOS_TYPE_CRB,			radioButtonCrb->Checked);
+		appKey->SetValue(VALUE_BIOS_TYPE_STANDARD,      radioButtonCrb->Checked);
+		appKey->SetValue(VALUE_BIOS_TYPE_CUSTOMIZED,    radioButtonCustomized->Checked);
+		appKey->SetValue(VALUE_PROJECT_NAME,            comboBoxProjectName->Text);
+		appKey->SetValue(VALUE_CUSTOMER_NAME,           textBoxCustomerName);
+		appKey->SetValue(VALUE_BIOS_VERSION,            textBoxBiosVersion);
+		appKey->SetValue(VALUE_MODIFY_TYPE_BF,			radioButtonBugFix->Checked );
+		appKey->SetValue(VALUE_MODIFY_TYPE_FA,			radioButtonFunctionAdd->Checked);
+		appKey->SetValue(VALUE_MODIFY_TYPE_FD,			radioButtonFunctionRemove->Checked);
+		appKey->SetValue(VALUE_ISSUE_NUMBER,			textBoxIssueNumber->Text);
+		appKey->SetValue(VALUE_SUMMARY,					textBoxSummary->Text);
+		appKey->SetValue(VALUE_SIGNATURE_AUTHOR,		textBoxAuthor->Text);
+		appKey->SetValue(VALUE_SIGNATURE_DATE,			textBoxDate->Text);
+		appKey->SetValue(VALUE_SIGNATURE_SERIAL_NUM,	textBoxSerialNumber->Text);
+		appKey->SetValue(VALUE_DESCRIPTION,				textBoxDescription->Text);
+		appKey->SetValue(VALUE_TEST_CASE,				textBoxTestCase->Text);
+		appKey->SetValue(VALUE_MODIFY_FILES,			textBoxModifyFiles->Text);
+		//
+		// Save comboBox Lists
+		// 
+		SaveComboSettings(appKey, PROJECT_NAME_KEY, comboBoxProjectName);
+		//
+		// Save form layout
+		//
+		//appKey->SetValue(FORM_LOCATION_X_VALUE, formLocation.X);
+		//appKey->SetValue(FORM_LOCATION_Y_VALUE, formLocation.Y);
+		appKey->SetValue(FORM_LOCATION_VALUE, this->Location);
+		//
+		// Save Category List File Name
+		//
+		//appKey->SetValue(VALUE_CATEGORY_LIST_FILE, fileCategory);
+	}
+
+	private: System::Void RestoreComboSettings(RegistryKey^ appKey, String^ keyName, System::Windows::Forms::ComboBox^ comboBox) {
+		RegistryKey^ subKey = appKey->OpenSubKey(keyName);
+		if (subKey != nullptr) {
+			for (int i = 0; i < MAX_PROJECT_NAME_SAVED; i++) {
+				String^ PathName = (String^)subKey->GetValue(i.ToString());
+				if (String::IsNullOrEmpty(PathName)) break;
+				comboBox->Items->Add(PathName);
+			}
+		}
+	}
+
+	private: System::Void RestoreSettings(Void) {
+		//
+		// Retrieve Registry keys
+		//
+		RegistryKey^ appKey = Registry::CurrentUser->OpenSubKey("Software\\" + COMPANY_NAME + "\\" + APP_KEY);
+		if (appKey == nullptr) {
+			Registry::SetValue("HKEY_CURRENT_USER\\Software\\" + COMPANY_NAME + "\\" + APP_KEY, APP_VERSION_VALUE, APP_REGISTRY_VERSION);
+			return;
+		}
+		String^ Str = (String^)appKey->GetValue(APP_VERSION_VALUE, "0.0");
+		if (String::Compare(APP_REGISTRY_VERSION, Str) != 0) {
+			RegistryKey^ appFamilyKey = Registry::CurrentUser->OpenSubKey("Software\\" + COMPANY_NAME, true);
+			appFamilyKey->DeleteSubKeyTree(APP_KEY);
+			Registry::SetValue("HKEY_CURRENT_USER\\Software\\" + COMPANY_NAME + "\\" + APP_KEY, APP_VERSION_VALUE, APP_REGISTRY_VERSION);
+			return;
+		}
+
+		//
+		// Restore comboBox Lists
+		//
+		RestoreComboSettings(appKey, PROJECT_NAME_KEY, comboBoxProjectName);
+		//
+		// Restore Contexts
+		//
+		radioButtonTag->Checked = Convert::ToBoolean( appKey->GetValue(VALUE_MESSAGE_TYPE_TAG, "") );
+		radioButtonMark->Checked = Convert::ToBoolean( appKey->GetValue(VALUE_MESSAGE_TYPE_MARK, "") );
+		radioButtonMessage->Checked = Convert::ToBoolean( appKey->GetValue(VALUE_MESSAGE_TYPE_MESSAGE, "") );
+		radioButtonCrb->Checked = Convert::ToBoolean( appKey->GetValue(VALUE_BIOS_TYPE_CRB, "") );
+		radioButtonCrb->Checked = Convert::ToBoolean( appKey->GetValue(VALUE_BIOS_TYPE_STANDARD, "") );
+		radioButtonCustomized->Checked = Convert::ToBoolean( appKey->GetValue(VALUE_BIOS_TYPE_CUSTOMIZED, "") );
+		comboBoxProjectName->Text = (String^) appKey->GetValue(VALUE_PROJECT_NAME, "");
+		textBoxCustomerName->Text = (String^)appKey->GetValue(VALUE_CUSTOMER_NAME, "");
+		textBoxBiosVersion->Text = (String^)appKey->GetValue(VALUE_BIOS_VERSION, "");
+		radioButtonBugFix->Checked = Convert::ToBoolean( appKey->GetValue(VALUE_MODIFY_TYPE_BF, "") );
+		radioButtonFunctionAdd->Checked = Convert::ToBoolean( appKey->GetValue(VALUE_MODIFY_TYPE_FA, "") );
+		radioButtonFunctionRemove->Checked = Convert::ToBoolean( appKey->GetValue(VALUE_MODIFY_TYPE_FD, "") );
+		textBoxIssueNumber->Text = (String^) appKey->GetValue(VALUE_ISSUE_NUMBER, "");
+		textBoxSummary->Text = (String^) appKey->GetValue(VALUE_SUMMARY, "");
+		textBoxAuthor->Text = (String^) appKey->GetValue(VALUE_SIGNATURE_AUTHOR, "");
+		textBoxDate->Text = (String^) appKey->GetValue(VALUE_SIGNATURE_DATE, "");
+		textBoxSerialNumber->Text = (String^)appKey->GetValue(VALUE_SIGNATURE_SERIAL_NUM, "");
+		textBoxDescription->Text = (String^) appKey->GetValue(VALUE_DESCRIPTION, "");
+		textBoxTestCase->Text = (String^) appKey->GetValue(VALUE_TEST_CASE, "");
+		textBoxModifyFiles->Text = (String^)appKey->GetValue(VALUE_MODIFY_FILES, "");
+		//
+		// Restore form layout
+		//
+		//formLocation.X = (Int32)appKey->GetValue(FORM_LOCATION_X_VALUE, this->Location.X);
+		//formLocation.Y = (Int32)appKey->GetValue(FORM_LOCATION_Y_VALUE, this->Location.Y);
+		formLocation = (System::Drawing::Point)appKey->GetValue(FORM_LOCATION_X_VALUE, this->Location);
+	}
+
 	private: System::Void Form1_Load(System::Object^ sender, System::EventArgs^ e) {
+		this->Location = System::Drawing::Point(formLocation);
+		this->pictureBoxAdlinkLogo->Image = Image::FromFile("ADLINK_logo_0415_2.bmp");
+		EnableControls();
 	}
 
 	private: System::Void linkLabel1_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e) {
 		System::Diagnostics::Process::Start("http://tpdc-km.adlinktech.com:8090/pages/viewpage.action?pageId=21037656");
 	}
 
-	private: System::Void EnableControls(bool bEnabled) {
+	private: System::Void EnableControls(Void) {
 		this->groupBoxBiosType->Enabled = this->radioButtonTag->Checked;
 
-		//		this->textBoxProjectName->Enabled = !(this->radioButtonTag->Checked && this->radioButtonCrb->Checked) && !(this->radioButtonMark->Checked);
-		this->textBoxProjectName->Enabled = !(this->radioButtonTag->Checked && this->radioButtonCrb->Checked);
+		//		this->comboBoxProjectName->Enabled = !(this->radioButtonTag->Checked && this->radioButtonCrb->Checked) && !(this->radioButtonMark->Checked);
+		this->comboBoxProjectName->Enabled = !(this->radioButtonTag->Checked && this->radioButtonCrb->Checked);
 		this->textBoxCustomerName->Enabled = this-> radioButtonCustomized->Checked && !(this->radioButtonMark->Checked) && !(this->radioButtonMessage->Checked);
 		this->textBoxBiosVersion->Enabled = !(this->radioButtonMark->Checked) && !(this->radioButtonMessage->Checked);
 
@@ -645,42 +848,39 @@ private: System::Windows::Forms::Label^ labelSignature;
 		this->textBoxSummary->Enabled = this->radioButtonMessage->Checked || this->radioButtonMark->Checked;
 
 		this->groupBoxSignature->Enabled = this->radioButtonMessage->Checked;
-		//this->textBoxAuthor->Enabled = this->radioButtonMessage->Checked;
-		//this->textBoxDate->Enabled = this->radioButtonMessage->Checked;
-		//this->textBoxSerialNumber->Enabled = this->radioButtonMessage->Checked;
 
 		this->textBoxDescription->Enabled = this->radioButtonMessage->Checked;
 		this->textBoxTestCase->Enabled = this->radioButtonMessage->Checked;
 		this->textBoxModifyFiles->Enabled = this->radioButtonMessage->Checked;
 	}
 	private: System::Void radioButtonTag_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
-		EnableControls(true);
+		EnableControls();
 	}
 	private: System::Void radioButtonMark_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
-		EnableControls(true);
+		EnableControls();
 	}
 	private: System::Void radioButtonMessage_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
-		EnableControls(true);
+		EnableControls();
 	}
 	private: System::Void radioButtonCrb_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
-		EnableControls(false);
+		EnableControls();
 	}
 	private: System::Void radioButtonStandard_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
-		EnableControls(true);
+		EnableControls();
 	}
 	private: System::Void radioButtonCustomized_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
-		EnableControls(true);
+		EnableControls();
 	}
 
 	private: System::String^ exportLog() {
 		String^ strLog = "";
 
-		if (this->textBoxProjectName->Enabled) {
+		if (this->comboBoxProjectName->Enabled) {
 			if (this->radioButtonTag->Checked) {
-				strLog = textBoxProjectName->Text + "_";
+				strLog = comboBoxProjectName->Text + "_";
 			}
 			else {
-				strLog = "[" + textBoxProjectName->Text + "]";
+				strLog = "[" + comboBoxProjectName->Text + "]";
 			}
 		}
 		if (this->textBoxCustomerName->Enabled) {
@@ -752,6 +952,31 @@ private: System::Windows::Forms::Label^ labelSignature;
 	}
 
 
+	private: System::Void UpdateComboBox(System::Windows::Forms::ComboBox^ comboBox, String^ str, bool insert) {
+		int index;
+		if (insert) {
+			index = comboBox->FindStringExact(str);
+		}
+		else {
+			index = comboBox->FindString(str);
+		}
+		if (index == -1) {
+			if (insert) {
+				comboBox->Items->Insert(0, str);
+				comboBox->SelectedIndex = 0;
+			}
+			else {
+				comboBox->Text = "";
+			}
+		}
+		else {
+			comboBox->SelectedIndex = index;
+			comboBox->Items->Insert(0, comboBox->SelectedItem);
+			comboBox->Items->RemoveAt(comboBox->SelectedIndex);
+			comboBox->SelectedIndex = 0;
+		}
+	}
+
 	private: System::Void buttonClipboard_Click(System::Object^ sender, System::EventArgs^ e) {
 		Clipboard::SetDataObject(exportLog());
 		//
@@ -774,12 +999,6 @@ private: System::Windows::Forms::Label^ labelSignature;
 		}
 	}
 
-	private: System::Void textBoxDate_Enter(System::Object^ sender, System::EventArgs^ e) {
-		DateTime localDate = DateTime::Now;
-		if (this->textBoxDate->Text == "") {
-			this->textBoxDate->Text = localDate.Year.ToString("0000") + localDate.Month.ToString("00") + localDate.Day.ToString("00");
-		}
-	}
 	private: System::Void textBoxAuthor_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 	}
 	private: System::Void textBoxDate_TextChanged(System::Object^ sender, System::EventArgs^ e) {
@@ -791,6 +1010,34 @@ private: System::Windows::Forms::Label^ labelSignature;
 	private: System::Void textBoxAuthor_Leave(System::Object^ sender, System::EventArgs^ e) {
 		this->textBoxAuthor->Text = this->textBoxAuthor->Text->ToUpper();
 		this->labelSignature->Text = "<ADLINK-" + textBoxAuthor->Text + textBoxDate->Text + "_" + textBoxSerialNumber->Text + ">";
+	}
+	private: System::Void Form1_LocationChanged(System::Object^ sender, System::EventArgs^ e) {
+		formLocation = this->Location;
+	}
+	private: System::Void buttonToday_Click(System::Object^ sender, System::EventArgs^ e) {
+		DateTime localDate = DateTime::Now;
+		this->textBoxDate->Text = localDate.Year.ToString("0000") + localDate.Month.ToString("00") + localDate.Day.ToString("00");
+	}
+	private: System::Void buttonExport_Click(System::Object^ sender, System::EventArgs^ e) {
+		String^ strIssue = this->textBoxIssueNumber->Text;
+		String^ FileName = strIssue + ".txt";
+
+		if (folderBrowserDialog1->ShowDialog() != System::Windows::Forms::DialogResult::OK) return;
+		FileName = Path::Combine(folderBrowserDialog1->SelectedPath, FileName);
+		StreamWriter^ dout = gcnew StreamWriter(FileName, false, System::Text::Encoding::ASCII);
+		dout->WriteLine(exportLog());
+		dout->Close();
+		//
+		// Sound
+		//
+		SystemSounds::Asterisk->Play();
+		MessageBox::Show("Export to " + Path::GetFileName(FileName) + " done!");
+	}
+	private: System::Void pictureBoxAdlinkLogo_Click(System::Object^ sender, System::EventArgs^ e) {
+		System::Diagnostics::Process::Start("http://tpdc-km.adlinktech.com:8090/pages/viewpage.action?pageId=21037656");
+	}
+	private: System::Void comboBoxProjectName_Leave(System::Object^ sender, System::EventArgs^ e) {
+		UpdateComboBox(comboBoxProjectName, comboBoxProjectName->Text, true);
 	}
 };
 }

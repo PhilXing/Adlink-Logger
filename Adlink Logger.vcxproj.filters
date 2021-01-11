@@ -48,5 +48,8 @@
     <Image Include="app.ico">
       <Filter>Ressourcendateien</Filter>
     </Image>
+    <Image Include="ADLINK_logo_0415_2.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
   </ItemGroup>
 </Project>

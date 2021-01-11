@@ -161,6 +161,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="ADLINK_logo_0415_2.bmp" />
     <Image Include="app.ico" />
   </ItemGroup>
   <ItemGroup>
