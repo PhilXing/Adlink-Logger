@@ -59,21 +59,21 @@ namespace CppCLRWinformsProjekt {
 	private: System::Windows::Forms::GroupBox^ groupBoxModification;
 	private: System::Windows::Forms::Label^ labelIssueNumber;
 	private: System::Windows::Forms::Label^ labelSummary;
-	private: System::Windows::Forms::Label^ labelAuthor;
 
 
 
 
-	private: System::Windows::Forms::GroupBox^ groupBoxSignature;
-	private: System::Windows::Forms::TextBox^ textBoxSerialNumber;
 
 
-	private: System::Windows::Forms::TextBox^ textBoxAuthor;
 
 
-	private: System::Windows::Forms::Label^ labelSerialnumber;
 
-	private: System::Windows::Forms::Label^ labelDate;
+
+
+
+
+
+
 	private: System::Windows::Forms::Label^ labelDescription;
 	private: System::Windows::Forms::Label^ labelTestCase;
 	private: System::Windows::Forms::Label^ labelModifyFiles;
@@ -95,7 +95,7 @@ namespace CppCLRWinformsProjekt {
 
 
 
-	private: System::Windows::Forms::TextBox^ textBoxDate;
+
 	private: System::Windows::Forms::TextBox^ textBoxModifyFiles;
 
 
@@ -117,11 +117,23 @@ namespace CppCLRWinformsProjekt {
 	private: System::Windows::Forms::Button^ buttonExport;
 	private: System::Windows::Forms::Button^ buttonClipboard;
 	private: System::Windows::Forms::Button^ buttonImport;
-	private: System::Windows::Forms::Label^ labelSignature;
-	private: System::Windows::Forms::Button^ buttonToday;
+
+
 	private: System::Windows::Forms::ComboBox^ comboBoxProjectName;
 	private: System::Windows::Forms::FolderBrowserDialog^ folderBrowserDialog1;
-	private: System::Windows::Forms::PictureBox^ pictureBoxAdlinkLogo;
+
+private: System::Windows::Forms::Label^ labelAuthor;
+private: System::Windows::Forms::Label^ labelDate;
+private: System::Windows::Forms::Label^ labelSerialnumber;
+private: System::Windows::Forms::TextBox^ textBoxAuthor;
+private: System::Windows::Forms::TextBox^ textBoxDate;
+private: System::Windows::Forms::TextBox^ textBoxSerialNumber;
+
+private: System::Windows::Forms::Button^ buttonToday;
+private: System::Windows::Forms::GroupBox^ groupBoxSignature;
+private: System::Windows::Forms::CheckBox^ checkBoxSignature;
+private: System::Windows::Forms::PictureBox^ pictureBoxAdlinkLogo;
+
 
 
 
@@ -158,15 +170,6 @@ namespace CppCLRWinformsProjekt {
 			this->groupBoxModification = (gcnew System::Windows::Forms::GroupBox());
 			this->labelIssueNumber = (gcnew System::Windows::Forms::Label());
 			this->labelSummary = (gcnew System::Windows::Forms::Label());
-			this->labelAuthor = (gcnew System::Windows::Forms::Label());
-			this->groupBoxSignature = (gcnew System::Windows::Forms::GroupBox());
-			this->buttonToday = (gcnew System::Windows::Forms::Button());
-			this->labelSignature = (gcnew System::Windows::Forms::Label());
-			this->textBoxSerialNumber = (gcnew System::Windows::Forms::TextBox());
-			this->textBoxDate = (gcnew System::Windows::Forms::TextBox());
-			this->textBoxAuthor = (gcnew System::Windows::Forms::TextBox());
-			this->labelSerialnumber = (gcnew System::Windows::Forms::Label());
-			this->labelDate = (gcnew System::Windows::Forms::Label());
 			this->labelDescription = (gcnew System::Windows::Forms::Label());
 			this->labelTestCase = (gcnew System::Windows::Forms::Label());
 			this->labelModifyFiles = (gcnew System::Windows::Forms::Label());
@@ -183,16 +186,25 @@ namespace CppCLRWinformsProjekt {
 			this->textBoxCustomerName = (gcnew System::Windows::Forms::TextBox());
 			this->labelCustomerName = (gcnew System::Windows::Forms::Label());
 			this->toolTip1 = (gcnew System::Windows::Forms::ToolTip(this->components));
-			this->pictureBoxAdlinkLogo = (gcnew System::Windows::Forms::PictureBox());
+			this->textBoxAuthor = (gcnew System::Windows::Forms::TextBox());
+			this->textBoxDate = (gcnew System::Windows::Forms::TextBox());
+			this->textBoxSerialNumber = (gcnew System::Windows::Forms::TextBox());
 			this->buttonExport = (gcnew System::Windows::Forms::Button());
 			this->buttonClipboard = (gcnew System::Windows::Forms::Button());
 			this->buttonImport = (gcnew System::Windows::Forms::Button());
 			this->comboBoxProjectName = (gcnew System::Windows::Forms::ComboBox());
 			this->folderBrowserDialog1 = (gcnew System::Windows::Forms::FolderBrowserDialog());
+			this->labelAuthor = (gcnew System::Windows::Forms::Label());
+			this->labelDate = (gcnew System::Windows::Forms::Label());
+			this->labelSerialnumber = (gcnew System::Windows::Forms::Label());
+			this->buttonToday = (gcnew System::Windows::Forms::Button());
+			this->groupBoxSignature = (gcnew System::Windows::Forms::GroupBox());
+			this->checkBoxSignature = (gcnew System::Windows::Forms::CheckBox());
+			this->pictureBoxAdlinkLogo = (gcnew System::Windows::Forms::PictureBox());
 			this->groupBoxType->SuspendLayout();
 			this->groupBoxModification->SuspendLayout();
-			this->groupBoxSignature->SuspendLayout();
 			this->groupBoxBiosType->SuspendLayout();
+			this->groupBoxSignature->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxAdlinkLogo))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -325,100 +337,6 @@ namespace CppCLRWinformsProjekt {
 			this->labelSummary->Size = System::Drawing::Size(50, 12);
 			this->labelSummary->TabIndex = 14;
 			this->labelSummary->Text = L"Summary";
-			// 
-			// labelAuthor
-			// 
-			this->labelAuthor->AutoSize = true;
-			this->labelAuthor->Location = System::Drawing::Point(28, 33);
-			this->labelAuthor->Name = L"labelAuthor";
-			this->labelAuthor->Size = System::Drawing::Size(38, 12);
-			this->labelAuthor->TabIndex = 0;
-			this->labelAuthor->Text = L"Author";
-			// 
-			// groupBoxSignature
-			// 
-			this->groupBoxSignature->Controls->Add(this->buttonToday);
-			this->groupBoxSignature->Controls->Add(this->labelSignature);
-			this->groupBoxSignature->Controls->Add(this->textBoxSerialNumber);
-			this->groupBoxSignature->Controls->Add(this->textBoxDate);
-			this->groupBoxSignature->Controls->Add(this->textBoxAuthor);
-			this->groupBoxSignature->Controls->Add(this->labelSerialnumber);
-			this->groupBoxSignature->Controls->Add(this->labelDate);
-			this->groupBoxSignature->Controls->Add(this->labelAuthor);
-			this->groupBoxSignature->Location = System::Drawing::Point(18, 434);
-			this->groupBoxSignature->Name = L"groupBoxSignature";
-			this->groupBoxSignature->Size = System::Drawing::Size(245, 126);
-			this->groupBoxSignature->TabIndex = 16;
-			this->groupBoxSignature->TabStop = false;
-			this->groupBoxSignature->Text = L"Signature";
-			// 
-			// buttonToday
-			// 
-			this->buttonToday->Location = System::Drawing::Point(183, 49);
-			this->buttonToday->Name = L"buttonToday";
-			this->buttonToday->Size = System::Drawing::Size(47, 23);
-			this->buttonToday->TabIndex = 4;
-			this->buttonToday->Text = L"Today";
-			this->buttonToday->UseVisualStyleBackColor = true;
-			this->buttonToday->Click += gcnew System::EventHandler(this, &Form1::buttonToday_Click);
-			// 
-			// labelSignature
-			// 
-			this->labelSignature->AutoSize = true;
-			this->labelSignature->Location = System::Drawing::Point(75, 0);
-			this->labelSignature->Name = L"labelSignature";
-			this->labelSignature->Size = System::Drawing::Size(168, 12);
-			this->labelSignature->TabIndex = 7;
-			this->labelSignature->Text = L"<ADLINK-XXYYYYMMDD_ZZ>";
-			// 
-			// textBoxSerialNumber
-			// 
-			this->textBoxSerialNumber->Location = System::Drawing::Point(77, 76);
-			this->textBoxSerialNumber->MaxLength = 2;
-			this->textBoxSerialNumber->Name = L"textBoxSerialNumber";
-			this->textBoxSerialNumber->Size = System::Drawing::Size(37, 22);
-			this->textBoxSerialNumber->TabIndex = 6;
-			this->toolTip1->SetToolTip(this->textBoxSerialNumber, L"personal daily serial number");
-			this->textBoxSerialNumber->TextChanged += gcnew System::EventHandler(this, &Form1::textBoxSerialNumber_TextChanged);
-			// 
-			// textBoxDate
-			// 
-			this->textBoxDate->Location = System::Drawing::Point(77, 49);
-			this->textBoxDate->MaxLength = 8;
-			this->textBoxDate->Name = L"textBoxDate";
-			this->textBoxDate->Size = System::Drawing::Size(91, 22);
-			this->textBoxDate->TabIndex = 3;
-			this->toolTip1->SetToolTip(this->textBoxDate, L"YYYYMMDD, date code");
-			this->textBoxDate->TextChanged += gcnew System::EventHandler(this, &Form1::textBoxDate_TextChanged);
-			// 
-			// textBoxAuthor
-			// 
-			this->textBoxAuthor->Location = System::Drawing::Point(77, 23);
-			this->textBoxAuthor->MaxLength = 2;
-			this->textBoxAuthor->Name = L"textBoxAuthor";
-			this->textBoxAuthor->Size = System::Drawing::Size(37, 22);
-			this->textBoxAuthor->TabIndex = 1;
-			this->toolTip1->SetToolTip(this->textBoxAuthor, L"XX, 2 letters\' initial of the name of the author");
-			this->textBoxAuthor->TextChanged += gcnew System::EventHandler(this, &Form1::textBoxAuthor_TextChanged);
-			this->textBoxAuthor->Leave += gcnew System::EventHandler(this, &Form1::textBoxAuthor_Leave);
-			// 
-			// labelSerialnumber
-			// 
-			this->labelSerialnumber->AutoSize = true;
-			this->labelSerialnumber->Location = System::Drawing::Point(28, 86);
-			this->labelSerialnumber->Name = L"labelSerialnumber";
-			this->labelSerialnumber->Size = System::Drawing::Size(37, 12);
-			this->labelSerialnumber->TabIndex = 5;
-			this->labelSerialnumber->Text = L"Serial#";
-			// 
-			// labelDate
-			// 
-			this->labelDate->AutoSize = true;
-			this->labelDate->Location = System::Drawing::Point(30, 59);
-			this->labelDate->Name = L"labelDate";
-			this->labelDate->Size = System::Drawing::Size(26, 12);
-			this->labelDate->TabIndex = 2;
-			this->labelDate->Text = L"Date";
 			// 
 			// labelDescription
 			// 
@@ -561,16 +479,36 @@ namespace CppCLRWinformsProjekt {
 			this->labelCustomerName->TabIndex = 7;
 			this->labelCustomerName->Text = L"Customer Name";
 			// 
-			// pictureBoxAdlinkLogo
+			// textBoxAuthor
 			// 
-			this->pictureBoxAdlinkLogo->Location = System::Drawing::Point(316, 12);
-			this->pictureBoxAdlinkLogo->Name = L"pictureBoxAdlinkLogo";
-			this->pictureBoxAdlinkLogo->Size = System::Drawing::Size(341, 79);
-			this->pictureBoxAdlinkLogo->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
-			this->pictureBoxAdlinkLogo->TabIndex = 26;
-			this->pictureBoxAdlinkLogo->TabStop = false;
-			this->toolTip1->SetToolTip(this->pictureBoxAdlinkLogo, L"Click to visit Commit Message Rule page...");
-			this->pictureBoxAdlinkLogo->Click += gcnew System::EventHandler(this, &Form1::pictureBoxAdlinkLogo_Click);
+			this->textBoxAuthor->Location = System::Drawing::Point(77, 23);
+			this->textBoxAuthor->MaxLength = 2;
+			this->textBoxAuthor->Name = L"textBoxAuthor";
+			this->textBoxAuthor->Size = System::Drawing::Size(37, 22);
+			this->textBoxAuthor->TabIndex = 1;
+			this->toolTip1->SetToolTip(this->textBoxAuthor, L"XX, 2 letters\' initial of the name of the author");
+			this->textBoxAuthor->TextChanged += gcnew System::EventHandler(this, &Form1::textBoxAuthor_TextChanged);
+			this->textBoxAuthor->Leave += gcnew System::EventHandler(this, &Form1::textBoxAuthor_Leave);
+			// 
+			// textBoxDate
+			// 
+			this->textBoxDate->Location = System::Drawing::Point(77, 49);
+			this->textBoxDate->MaxLength = 8;
+			this->textBoxDate->Name = L"textBoxDate";
+			this->textBoxDate->Size = System::Drawing::Size(91, 22);
+			this->textBoxDate->TabIndex = 3;
+			this->toolTip1->SetToolTip(this->textBoxDate, L"YYYYMMDD, date code");
+			this->textBoxDate->TextChanged += gcnew System::EventHandler(this, &Form1::textBoxDate_TextChanged);
+			// 
+			// textBoxSerialNumber
+			// 
+			this->textBoxSerialNumber->Location = System::Drawing::Point(77, 76);
+			this->textBoxSerialNumber->MaxLength = 2;
+			this->textBoxSerialNumber->Name = L"textBoxSerialNumber";
+			this->textBoxSerialNumber->Size = System::Drawing::Size(37, 22);
+			this->textBoxSerialNumber->TabIndex = 6;
+			this->toolTip1->SetToolTip(this->textBoxSerialNumber, L"personal daily serial number");
+			this->textBoxSerialNumber->TextChanged += gcnew System::EventHandler(this, &Form1::textBoxSerialNumber_TextChanged);
 			// 
 			// buttonExport
 			// 
@@ -611,12 +549,90 @@ namespace CppCLRWinformsProjekt {
 			this->comboBoxProjectName->TabIndex = 6;
 			this->comboBoxProjectName->Leave += gcnew System::EventHandler(this, &Form1::comboBoxProjectName_Leave);
 			// 
+			// labelAuthor
+			// 
+			this->labelAuthor->AutoSize = true;
+			this->labelAuthor->Location = System::Drawing::Point(28, 33);
+			this->labelAuthor->Name = L"labelAuthor";
+			this->labelAuthor->Size = System::Drawing::Size(38, 12);
+			this->labelAuthor->TabIndex = 0;
+			this->labelAuthor->Text = L"Author";
+			// 
+			// labelDate
+			// 
+			this->labelDate->AutoSize = true;
+			this->labelDate->Location = System::Drawing::Point(30, 59);
+			this->labelDate->Name = L"labelDate";
+			this->labelDate->Size = System::Drawing::Size(26, 12);
+			this->labelDate->TabIndex = 2;
+			this->labelDate->Text = L"Date";
+			// 
+			// labelSerialnumber
+			// 
+			this->labelSerialnumber->AutoSize = true;
+			this->labelSerialnumber->Location = System::Drawing::Point(28, 86);
+			this->labelSerialnumber->Name = L"labelSerialnumber";
+			this->labelSerialnumber->Size = System::Drawing::Size(37, 12);
+			this->labelSerialnumber->TabIndex = 5;
+			this->labelSerialnumber->Text = L"Serial#";
+			// 
+			// buttonToday
+			// 
+			this->buttonToday->Location = System::Drawing::Point(183, 49);
+			this->buttonToday->Name = L"buttonToday";
+			this->buttonToday->Size = System::Drawing::Size(47, 23);
+			this->buttonToday->TabIndex = 4;
+			this->buttonToday->Text = L"Today";
+			this->buttonToday->UseVisualStyleBackColor = true;
+			this->buttonToday->Click += gcnew System::EventHandler(this, &Form1::buttonToday_Click);
+			// 
+			// groupBoxSignature
+			// 
+			this->groupBoxSignature->Controls->Add(this->buttonToday);
+			this->groupBoxSignature->Controls->Add(this->textBoxSerialNumber);
+			this->groupBoxSignature->Controls->Add(this->textBoxDate);
+			this->groupBoxSignature->Controls->Add(this->textBoxAuthor);
+			this->groupBoxSignature->Controls->Add(this->labelSerialnumber);
+			this->groupBoxSignature->Controls->Add(this->labelDate);
+			this->groupBoxSignature->Controls->Add(this->labelAuthor);
+			this->groupBoxSignature->Location = System::Drawing::Point(18, 447);
+			this->groupBoxSignature->Name = L"groupBoxSignature";
+			this->groupBoxSignature->Size = System::Drawing::Size(245, 109);
+			this->groupBoxSignature->TabIndex = 16;
+			this->groupBoxSignature->TabStop = false;
+			this->groupBoxSignature->Text = L"Signature";
+			// 
+			// checkBoxSignature
+			// 
+			this->checkBoxSignature->AutoSize = true;
+			this->checkBoxSignature->Checked = true;
+			this->checkBoxSignature->CheckState = System::Windows::Forms::CheckState::Checked;
+			this->checkBoxSignature->Location = System::Drawing::Point(76, 435);
+			this->checkBoxSignature->Name = L"checkBoxSignature";
+			this->checkBoxSignature->Size = System::Drawing::Size(187, 16);
+			this->checkBoxSignature->TabIndex = 8;
+			this->checkBoxSignature->Text = L"<ADLINK-XXYYYYMMDD_ZZ>";
+			this->checkBoxSignature->UseVisualStyleBackColor = true;
+			this->checkBoxSignature->CheckedChanged += gcnew System::EventHandler(this, &Form1::checkBoxSignature_CheckedChanged);
+			// 
+			// pictureBoxAdlinkLogo
+			// 
+			this->pictureBoxAdlinkLogo->Location = System::Drawing::Point(310, 12);
+			this->pictureBoxAdlinkLogo->Name = L"pictureBoxAdlinkLogo";
+			this->pictureBoxAdlinkLogo->Size = System::Drawing::Size(341, 79);
+			this->pictureBoxAdlinkLogo->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->pictureBoxAdlinkLogo->TabIndex = 26;
+			this->pictureBoxAdlinkLogo->TabStop = false;
+			this->toolTip1->SetToolTip(this->pictureBoxAdlinkLogo, L"Click to visit Commit Message Rule page...");
+			this->pictureBoxAdlinkLogo->Click += gcnew System::EventHandler(this, &Form1::pictureBoxAdlinkLogo_Click);
+			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(669, 568);
-			this->Controls->Add(this->pictureBoxAdlinkLogo);
+			this->Controls->Add(this->checkBoxSignature);
+			this->Controls->Add(this->groupBoxSignature);
 			this->Controls->Add(this->comboBoxProjectName);
 			this->Controls->Add(this->buttonImport);
 			this->Controls->Add(this->buttonClipboard);
@@ -633,27 +649,27 @@ namespace CppCLRWinformsProjekt {
 			this->Controls->Add(this->labelModifyFiles);
 			this->Controls->Add(this->labelTestCase);
 			this->Controls->Add(this->labelDescription);
-			this->Controls->Add(this->groupBoxSignature);
 			this->Controls->Add(this->labelSummary);
 			this->Controls->Add(this->labelIssueNumber);
 			this->Controls->Add(this->groupBoxModification);
 			this->Controls->Add(this->labelBiosVersion);
 			this->Controls->Add(this->labelProjectName);
 			this->Controls->Add(this->groupBoxType);
+			this->Controls->Add(this->pictureBoxAdlinkLogo);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->MaximizeBox = false;
 			this->Name = L"Form1";
-			this->Text = L"Adlink Logger v0.1-2021-01-08";
+			this->Text = L"Adlink Logger v0.2-2021-07-29";
 			this->Load += gcnew System::EventHandler(this, &Form1::Form1_Load);
 			this->LocationChanged += gcnew System::EventHandler(this, &Form1::Form1_LocationChanged);
 			this->groupBoxType->ResumeLayout(false);
 			this->groupBoxType->PerformLayout();
 			this->groupBoxModification->ResumeLayout(false);
 			this->groupBoxModification->PerformLayout();
-			this->groupBoxSignature->ResumeLayout(false);
-			this->groupBoxSignature->PerformLayout();
 			this->groupBoxBiosType->ResumeLayout(false);
 			this->groupBoxBiosType->PerformLayout();
+			this->groupBoxSignature->ResumeLayout(false);
+			this->groupBoxSignature->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxAdlinkLogo))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
@@ -663,7 +679,7 @@ namespace CppCLRWinformsProjekt {
 
 #define APP_KEY							"Logger"
 #define APP_VERSION_VALUE   			"AppVersion"
-#define APP_REGISTRY_VERSION			"0.1"
+#define APP_REGISTRY_VERSION			"0.2"
 
 #define COMPANY_NAME				    "ADLink"
 
@@ -681,6 +697,7 @@ namespace CppCLRWinformsProjekt {
 #define VALUE_MODIFY_TYPE_FD            "ModifyTypeFunctionRemove"
 #define VALUE_ISSUE_NUMBER				"IssueNumber"
 #define VALUE_SUMMARY					"Summary"
+#define VALUE_SIGNATURE_CHECKED			"SignatureChecked"
 #define VALUE_SIGNATURE_AUTHOR			"SignatureAuthor"
 #define VALUE_SIGNATURE_DATE			"SignatureDate"
 #define VALUE_SIGNATURE_SERIAL_NUM		"SignatureSerialNumber"
@@ -733,6 +750,7 @@ namespace CppCLRWinformsProjekt {
 		appKey->SetValue(VALUE_MODIFY_TYPE_FD,			radioButtonFunctionRemove->Checked);
 		appKey->SetValue(VALUE_ISSUE_NUMBER,			textBoxIssueNumber->Text);
 		appKey->SetValue(VALUE_SUMMARY,					textBoxSummary->Text);
+		appKey->SetValue(VALUE_SIGNATURE_CHECKED,		checkBoxSignature->Checked);
 		appKey->SetValue(VALUE_SIGNATURE_AUTHOR,		textBoxAuthor->Text);
 		appKey->SetValue(VALUE_SIGNATURE_DATE,			textBoxDate->Text);
 		appKey->SetValue(VALUE_SIGNATURE_SERIAL_NUM,	textBoxSerialNumber->Text);
@@ -804,6 +822,7 @@ namespace CppCLRWinformsProjekt {
 		radioButtonFunctionRemove->Checked = Convert::ToBoolean( appKey->GetValue(VALUE_MODIFY_TYPE_FD, "") );
 		textBoxIssueNumber->Text = (String^) appKey->GetValue(VALUE_ISSUE_NUMBER, "");
 		textBoxSummary->Text = (String^) appKey->GetValue(VALUE_SUMMARY, "");
+		checkBoxSignature->Checked = Convert::ToBoolean(appKey->GetValue(VALUE_SIGNATURE_CHECKED, ""));
 		textBoxAuthor->Text = (String^) appKey->GetValue(VALUE_SIGNATURE_AUTHOR, "");
 		textBoxDate->Text = (String^) appKey->GetValue(VALUE_SIGNATURE_DATE, "");
 		textBoxSerialNumber->Text = (String^)appKey->GetValue(VALUE_SIGNATURE_SERIAL_NUM, "");
@@ -820,7 +839,7 @@ namespace CppCLRWinformsProjekt {
 
 	private: System::Void Form1_Load(System::Object^ sender, System::EventArgs^ e) {
 		this->Location = System::Drawing::Point(formLocation);
-		this->pictureBoxAdlinkLogo->Image = Image::FromFile("ADLINK_logo_0415_2.png");
+		//this->pictureBoxAdlinkLogo->Image = Image::FromFile("ADLINK_logo_0415_2.png");
 		EnableControls();
 	}
 
@@ -846,6 +865,8 @@ namespace CppCLRWinformsProjekt {
 		this->textBoxDescription->Enabled = this->radioButtonMessage->Checked;
 		this->textBoxTestCase->Enabled = this->radioButtonMessage->Checked;
 		this->textBoxModifyFiles->Enabled = this->radioButtonMessage->Checked;
+
+		this->groupBoxSignature->Enabled = this->checkBoxSignature->Checked;
 	}
 	private: System::Void radioButtonTag_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 		EnableControls();
@@ -996,14 +1017,14 @@ namespace CppCLRWinformsProjekt {
 	private: System::Void textBoxAuthor_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 	}
 	private: System::Void textBoxDate_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-		this->labelSignature->Text = "<ADLINK-" + textBoxAuthor->Text + textBoxDate->Text + "_" + textBoxSerialNumber->Text + ">";
+		this->checkBoxSignature->Text = "<ADLINK-" + textBoxAuthor->Text + textBoxDate->Text + "_" + textBoxSerialNumber->Text + ">";
 	}
 	private: System::Void textBoxSerialNumber_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-		this->labelSignature->Text = "<ADLINK-" + textBoxAuthor->Text + textBoxDate->Text + "_" + textBoxSerialNumber->Text + ">";
+		this->checkBoxSignature->Text = "<ADLINK-" + textBoxAuthor->Text + textBoxDate->Text + "_" + textBoxSerialNumber->Text + ">";
 	}
 	private: System::Void textBoxAuthor_Leave(System::Object^ sender, System::EventArgs^ e) {
 		this->textBoxAuthor->Text = this->textBoxAuthor->Text->ToUpper();
-		this->labelSignature->Text = "<ADLINK-" + textBoxAuthor->Text + textBoxDate->Text + "_" + textBoxSerialNumber->Text + ">";
+		this->checkBoxSignature->Text = "<ADLINK-" + textBoxAuthor->Text + textBoxDate->Text + "_" + textBoxSerialNumber->Text + ">";
 	}
 	private: System::Void Form1_LocationChanged(System::Object^ sender, System::EventArgs^ e) {
 		formLocation = this->Location;
@@ -1032,6 +1053,9 @@ namespace CppCLRWinformsProjekt {
 	}
 	private: System::Void comboBoxProjectName_Leave(System::Object^ sender, System::EventArgs^ e) {
 		UpdateComboBox(comboBoxProjectName, comboBoxProjectName->Text, true);
+	}
+	private: System::Void checkBoxSignature_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+		this->groupBoxSignature->Enabled = this->checkBoxSignature->Checked;
 	}
 };
 }
